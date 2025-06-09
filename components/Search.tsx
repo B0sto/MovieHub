@@ -2,13 +2,15 @@
 
 import SearchIcon from "@/public/SearchIcon";
 import { useMovieContext } from "@/contexts/MovieContext";
-import { MovieContextType } from "@/types/types";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const Search = () => {
+  const { isDarkMode } = useTheme();
+
   const { searchTerm, setSearchTerm } = useMovieContext();
   return (
-    <div className="search">
-        <div className="search-wrapper">
+    <div className={`search ${isDarkMode ? 'bg-light-100/5' : 'bg-dark-100/5'}`}>
+        <div className={`search-wrapper ${isDarkMode ? 'text-gray-200 placeholder-light-200' : 'text-dark-100 placeholder-dark-100'} `}>
             <SearchIcon/>
 
             <input type="text" 
