@@ -5,8 +5,11 @@ import MovieCard from "./MovieCard";
 import Spinner from "./Spinner";
 import Search from "./Search";
 import Pagination from "./Pagination";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const MovieList = () => {
+  const { isDarkMode } = useTheme();
+
   const {
     movieList,
     isLoading,
@@ -18,7 +21,7 @@ const MovieList = () => {
     <>
       <section className="all-movies">
         <Search />
-        <h2>Popular</h2>
+        <h2 className={`${isDarkMode ? 'text-white' : 'text-black'}`}>Popular</h2>
         {isLoading ? (
           <Spinner />
         ) : errorMessage ? (

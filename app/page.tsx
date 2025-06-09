@@ -1,29 +1,10 @@
 import Logo from "@/public/Logo";
 import Image from "next/image";
 import MovieList from "@/components/MovieList";
+import { useTheme } from "@/contexts/ThemeContext";
+import ThemeToggle from "@/components/ThemeToggle";
+import MainPage from "@/components/MainPage";
 
-export default function Home() {  
-
-  return (
-    <main>
-      <div className="relative">
-        <Logo />
-
-        <span className="text-2xl text-white absolute top-5 right-5">Sun</span>
-
-        <div className="wrapper">
-          <header className="relative">
-            <Image src="/heroimg.png" alt="heroimg" width={500} height={500} />
-
-            <h1>
-              Find <span className="text-gradient">Movies</span> You'll enjoy
-              Without the Hassle
-            </h1>
-          </header>
-
-          <MovieList />
-        </div>
-      </div>
-    </main>
-  );
+export default function Home() {
+  return <MainPage/>
 }

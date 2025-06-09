@@ -24,3 +24,8 @@ export type MovieContextType = {
     setPage: (page: number) => void;
     totalPages: number;
 }
+
+export type ThemeContextType = {
+    isDarkMode: boolean;
+    toggleTheme: () => void;
+}
