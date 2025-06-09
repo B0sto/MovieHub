@@ -1,11 +1,11 @@
+"use client"
+
 import SearchIcon from "@/public/SearchIcon";
+import { useMovieContext } from "@/contexts/MovieContext";
+import { MovieContextType } from "@/types/types";
 
-
-type searchTermType = {
-    searchTerm: string,
-    setSearchTerm: (value: string) => void;
-}
-const Search = ({searchTerm, setSearchTerm}: searchTermType) => {
+const Search = () => {
+  const { searchTerm, setSearchTerm } = useMovieContext();
   return (
     <div className="search">
         <div className="search-wrapper">

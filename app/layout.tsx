@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { MovieProvider } from "@/contexts/MovieContext";
 
 export const metadata: Metadata = {
   title: "MovieHub",
@@ -14,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <MovieProvider>{children}</MovieProvider>
       </body>
     </html>
   );
