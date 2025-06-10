@@ -4,6 +4,7 @@ import axios from "axios";
 import { useDebounce } from "react-use";
 import { Movie } from "@/types/types";
 import { MovieContextType } from "@/types/types";
+import { getTrendingMovies } from "@/lib/appwrite";
 
 const MovieContext = createContext<MovieContextType | null>(null);
 
@@ -15,6 +16,7 @@ export const MovieProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [trendingMovies, setTrendingMovies] = useState([]);
 
   useDebounce(
     () => {
@@ -59,6 +61,24 @@ export const MovieProvider = ({ children }: { children: React.ReactNode }) => {
     getMovies(debouncedSearchTerm);
   }, [debouncedSearchTerm, page]);
 
+  useEffect(() => {
+    async function loadTrendingMovies() {
+      try {
+        const movies: any = await getTrendingMovies();
+
+        setTrendingMovies(movies);
+      } catch (error) {
+        console.log(error);
+        setTrendingMovies([])
+        
+      }
+    }
+
+    loadTrendingMovies();
+
+  }, [])
+  
+
   return (
     <MovieContext.Provider
       value={{
@@ -70,6 +90,7 @@ export const MovieProvider = ({ children }: { children: React.ReactNode }) => {
         page,
         setPage,
         totalPages,
+        trendingMovies
       }}
     >
       {children}
