@@ -28,7 +28,7 @@
   }
 
   h2 {
-    @apply text-2xl font-bold  sm:text-3xl;
+    @apply text-2xl font-bold sm:text-3xl;
   }
 
   main {
@@ -52,19 +52,19 @@
   .trending {
     @apply mt-20;
 
-    & ul {
+    & ol {
       @apply flex flex-row overflow-y-auto gap-5 -mt-10 w-full hide-scrollbar;
     }
 
-    & ul li {
+    & ol li {
       @apply min-w-[230px] flex flex-row items-center;
     }
 
-    & ul li p {
+    & ol li p {
       @apply fancy-text mt-[22px] text-nowrap;
     }
 
-    & ul li img {
+    & ol li img {
       @apply w-[127px] h-[163px] rounded-lg object-cover -ml-3.5;
     }
   }

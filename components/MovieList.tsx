@@ -6,22 +6,22 @@ import Spinner from "./Spinner";
 import Search from "./Search";
 import Pagination from "./Pagination";
 import { useTheme } from "@/contexts/ThemeContext";
+import TrendingMovies from "./TrendingMovies";
 
 const MovieList = () => {
   const { isDarkMode } = useTheme();
 
-  const {
-    movieList,
-    isLoading,
-    errorMessage,
-    totalPages,
-  } = useMovieContext();
+  const { movieList, isLoading, errorMessage, totalPages } = useMovieContext();
 
   return (
     <>
       <section className="all-movies">
         <Search />
-        <h2 className={`${isDarkMode ? 'text-white' : 'text-black'}`}>Popular</h2>
+        <TrendingMovies />
+
+        <h2 className={`${isDarkMode ? "text-white" : "text-black"}`}>
+          Popular
+        </h2>
         {isLoading ? (
           <Spinner />
         ) : errorMessage ? (
@@ -36,9 +36,7 @@ const MovieList = () => {
           <p>No movies found</p>
         )}
       </section>
-      {totalPages > 1 && (
-         <Pagination/>
-      )}
+      {totalPages > 1 && <Pagination />}
     </>
   );
 };

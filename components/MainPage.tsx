@@ -4,6 +4,7 @@ import Image from "next/image";
 import MovieList from "@/components/MovieList";
 import { useTheme } from "@/contexts/ThemeContext";
 import ThemeToggle from "@/components/ThemeToggle";
+import TrendingMovies from "./TrendingMovies";
 
 const MainPage = () => {
   const { isDarkMode } = useTheme();
@@ -32,6 +33,7 @@ const MainPage = () => {
             </h1>
           </header>
 
+          
           <MovieList />
         </div>
       </div>
