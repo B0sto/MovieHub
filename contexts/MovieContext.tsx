@@ -77,7 +77,17 @@ export const MovieProvider = ({ children }: { children: React.ReactNode }) => {
     loadTrendingMovies();
 
   }, [])
-  
+
+  const getMovieById = async(id: string) => {
+    try {
+      const response = await axios.get(`/api/movies/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("failed to get movie by id", error);
+
+    }
+  }
+    
 
   return (
     <MovieContext.Provider
@@ -90,7 +100,8 @@ export const MovieProvider = ({ children }: { children: React.ReactNode }) => {
         page,
         setPage,
         totalPages,
-        trendingMovies
+        trendingMovies,
+        getMovieById
       }}
     >
       {children}

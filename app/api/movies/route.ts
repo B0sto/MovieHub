@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 
-const API_BASE_URL = "https://api.themoviedb.org/3";
+const API_BASE_URL = process.env.API_BASE_URL
 const API_KEY = process.env.TMDB_API_KEY;
 const API_OPTIONS = {
   headers: {
@@ -20,10 +20,10 @@ export async function GET(req: NextRequest) {
   const page = url.searchParams.get("page") || "2";
 
   const endpoint = query
-    ? `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
+    ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(
         query
       )}&page=${page}`
-    : `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=${page}`;
+    : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc&page=${page}`;
   try {
     const response = await axios.get(endpoint, API_OPTIONS);
 

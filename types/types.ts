@@ -25,6 +25,7 @@ export type MovieContextType = {
     setPage: (page: number) => void;
     totalPages: number;
     trendingMovies: Movie[]
+    getMovieById: (id: string) => Promise<Movie> 
 }
 
 export type ThemeContextType = {
