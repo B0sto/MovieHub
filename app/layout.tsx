@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { MovieProvider } from "@/contexts/MovieContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import ClientLayout from "@/components/ClientLayout";
 
 export const metadata: Metadata = {
   title: "MovieHub",
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <MovieProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <ClientLayout>{children}</ClientLayout>
+          </ThemeProvider>
         </MovieProvider>
       </body>
     </html>

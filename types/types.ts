@@ -1,13 +1,26 @@
-import { Dispatch, SetStateAction } from "react"
-
 export interface Movie {
     id: number,
     title: string,
     vote_average: number,
     poster_path: string,
     release_date: string,
-    original_language: string
-    poster_url: string
+    original_language: string,
+    poster_url: string,
+    backdrop_path?: string,
+    description?: string,
+    runtime?: number,
+    vote_count?: number,
+    overview?: string,
+    production_countries?: Array<{name: string}>;
+    genres?: Array<{id: number, name: string}>
+    status?: string
+    spoken_languages?: Array<{english_name: string}>
+    budget?: number;
+    revenue?: number;
+    tagline?: string;
+    production_companies?: Array<{name: string}>
+    homepage?: string;
+
 }
 
 export type PaginationBtnType = {

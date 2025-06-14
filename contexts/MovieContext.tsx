@@ -87,7 +87,6 @@ export const MovieProvider = ({ children }: { children: React.ReactNode }) => {
 
     }
   }
-    
 
   return (
     <MovieContext.Provider
@@ -101,7 +100,7 @@ export const MovieProvider = ({ children }: { children: React.ReactNode }) => {
         setPage,
         totalPages,
         trendingMovies,
-        getMovieById
+        getMovieById,
       }}
     >
       {children}
