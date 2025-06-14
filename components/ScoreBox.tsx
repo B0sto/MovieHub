@@ -1,3 +1,4 @@
+import { formatVoteAverage } from "@/lib/utils";
 import StarIcon from "./StarIcon";
 
 const ScoreBox = ({
@@ -16,7 +17,7 @@ const ScoreBox = ({
   >
     <StarIcon />
     <p className={`text-sm sm:text-base font-medium ${isDarkMode ? "text-white" : "text-black"}`}>
-      {voteAverage.toFixed(1)}/10
+      {formatVoteAverage(voteAverage)}/10
       <span className={isDarkMode ? "text-[#A8B5DB]" : "text-gray-600"}> ({Math.floor(voteCount)}K)</span>
     </p>
   </div>
