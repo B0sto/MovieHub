@@ -5,10 +5,18 @@ import { useMovieContext } from "@/contexts/MovieContext";
 import StarIcon from "@/components/StarIcon";
 import Spinner from "@/components/Spinner";
 import { Movie } from "@/types/types";
-import { formatVoteAverage, movieDurationConverter } from "@/lib/utils";
+import {
+  formatReleaseDate,
+  formatVoteAverage,
+  movieDurationConverter,
+} from "@/lib/utils";
 import { useTheme } from "@/contexts/ThemeContext";
 import ThemeToggle from "@/components/ThemeToggle";
 import Logo from "@/public/Logo";
+import Link from "next/link";
+import ScoreBox from "@/components/ScoreBox";
+import DetailRow from "@/components/DetailRow";
+import GenreBadge from "@/components/GenreBadge";
 
 const page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
@@ -35,163 +43,163 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <section
-      className={`${
-        isDarkMode ? "bg-primary" : "bg-white"
-      } min-h-screen w-full pb-8 px-4 sm:px-6 md:px-10`}
+      className={`${isDarkMode ? "bg-primary" : "bg-white"} movies_detail_page`}
     >
       <Logo />
       <ThemeToggle />
 
-      <div className="movie_details max-w-7xl mx-auto bg-[#15162b] rounded-2xl shadow-xl overflow-hidden px-6 sm:px-10 py-10 space-y-10">
+      <div
+        className={`movie_details ${
+          isDarkMode ? " movie_details_dark" : "movie_details_light"
+        }`}
+      >
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
           <div className="space-y-2">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2
+              className={`text-3xl md:text-4xl font-bold ${
+                isDarkMode ? "text-white" : "text-black"
+              }`}
+            >
               {movie.title}
             </h2>
-            <div className="flex flex-wrap items-center gap-x-3 text-[#A8B5DB] text-sm sm:text-base">
+            <div
+              className={`flex flex-wrap items-center gap-x-3 text-sm sm:text-base ${
+                isDarkMode ? "text-[#A8B5DB]" : "text-gray-700"
+              }`}
+            >
               <p>{movie.release_date?.split("-")[0] || "Unknown"}</p>
               <span>•</span>
               <p>{movieDurationConverter(movie.runtime!)}</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-x-2 bg-[#221F3D] rounded-md px-4 py-2 h-fit w-fit self-start">
-            <StarIcon />
-            <p className="text-white text-sm sm:text-base font-medium">
-              {formatVoteAverage(movie.vote_average)}/10
-              <span className="text-[#A8B5DB]">
-                {" "}
-                ({Math.floor(movie.vote_count!)}K)
-              </span>
-            </p>
-          </div>
+          <ScoreBox
+            voteAverage={movie.vote_average}
+            voteCount={movie.vote_count ?? 0}
+            isDarkMode={isDarkMode}
+          />
         </div>
 
-        {movie.backdrop_path && (
-          <div className="w-full overflow-hidden rounded-xl">
-            <img
-              src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-              alt={movie.title}
-              className="w-full rounded-xl"
-            />
-          </div>
-        )}
+        <div className="poster_trailer flex flex-col md:flex-row gap-6 w-full">
+          {movie.poster_path && (
+            <div className="w-full md:w-1/3 aspect-[2/3]">
+              <img
+                src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                alt="poster"
+                className="w-full h-full object-cover rounded-xl"
+              />
+            </div>
+          )}
 
-        {movie.genres && (
-          <div className="grid sm:grid-cols-[150px_1fr] gap-4 items-start">
-            <p className="font-semibold text-lg text-gray-300">Genres</p>
+          {movie.trailer_url && (
+            <div className="w-full md:w-2/3 aspect-video">
+              <iframe
+                className="w-full h-full rounded-xl outline-none"
+                src={movie.trailer_url.replace("watch?v=", "embed/")}
+                title={movie.title + " Trailer"}
+                allowFullScreen
+              />
+            </div>
+          )}
+        </div>
+
+        {movie.genres!.length > 0 && (
+          <DetailRow label="Genre" isDarkMode={isDarkMode}>
             <div className="flex flex-wrap gap-3">
-              {movie.genres.map((genre) => (
-                <span
+              {movie.genres!.map((genre) => (
+                <GenreBadge
                   key={genre.id}
-                  className="text-white text-sm font-semibold px-4 py-2 bg-[#221F3D] rounded-full"
-                >
-                  {genre.name}
-                </span>
+                  genre={genre.name}
+                  isDarkMode={isDarkMode}
+                />
               ))}
             </div>
-          </div>
+          </DetailRow>
         )}
-      {/* Header */}
 
         {movie.overview && (
-          <div className="desc flex flex-col md:flex-row gap-2 md:gap-x-8 items-start">
-            <p className="font-semibold w-[150px] shrink-0 text-gray-300">
-              Overview
-            </p>
-            <p className="text-white leading-relaxed text-[17px] max-w-[80ch]">
-              {movie.overview}
-            </p>
-          </div>
+          <DetailRow label="Overview" isDarkMode={isDarkMode}>
+            <p className="leading-relaxed max-w-[560px]">{movie.overview}</p>
+          </DetailRow>
         )}
 
         {movie.release_date && (
-          <div className="grid sm:grid-cols-[150px_1fr] gap-4 items-start">
-            <p className="font-semibold text-lg text-gray-300">Release Date</p>
-            <p className="text-white">{movie.release_date}</p>
-          </div>
+          <DetailRow label="Release Date" isDarkMode={isDarkMode}>
+            <p>{formatReleaseDate(movie.release_date)}</p>
+          </DetailRow>
         )}
 
         {movie.production_countries!.length > 0 && (
-          <div className="grid sm:grid-cols-[150px_1fr] gap-4 items-start">
-            <p className="font-semibold text-lg text-gray-300">Countries</p>
-            <ul className="flex flex-wrap gap-3 text-white">
-              {movie.production_countries!.map((country, index) => (
-                <li key={index} className="flex items-center">
+          <DetailRow label="Countries" isDarkMode={isDarkMode}>
+            <ul className="flex flex-wrap gap-3">
+              {movie.production_countries!.map((country, i) => (
+                <li key={i} className="flex items-center">
                   {country.name}
-                  {index < movie.production_countries!.length - 1 && (
-                    <span className="mx-2 text-gray-500">•</span>
+                  {i < movie.production_countries!.length - 1 && (
+                    <span
+                      className={`mx-2 ${
+                        isDarkMode ? "text-gray-500" : "text-gray-400"
+                      }`}
+                    >
+                      •
+                    </span>
                   )}
                 </li>
               ))}
             </ul>
-          </div>
+          </DetailRow>
         )}
 
         {movie.status && (
-          <div className="grid sm:grid-cols-[150px_1fr] gap-4 items-start">
-            <p className="font-semibold text-lg text-gray-300">Status</p>
-            <p className="text-white">{movie.status}</p>
-          </div>
+          <DetailRow label="Status" isDarkMode={isDarkMode}>
+            <p>{movie.status}</p>
+          </DetailRow>
         )}
 
-        {movie.spoken_languages?.length! > 0 && (
-          <div className="grid sm:grid-cols-[150px_1fr] gap-4 items-start">
-            <p className="font-semibold text-lg text-gray-300">Language</p>
-            <p className="text-white">
-              {movie.spoken_languages!
-                .map((lang) => lang.english_name)
-                .join(" • ")}
-            </p>
-          </div>
+        {movie.spoken_languages!.length > 0 && (
+          <DetailRow label="Language" isDarkMode={isDarkMode}>
+            {movie
+              .spoken_languages!.map((lang) => lang.english_name)
+              .join(" • ")}
+          </DetailRow>
         )}
 
-        {movie.budget && (
-          <div className="grid sm:grid-cols-[150px_1fr] gap-4 items-start">
-            <p className="font-semibold text-lg text-gray-300">Budget</p>
-            <p className="text-white">${movie.budget.toLocaleString()}</p>
-          </div>
-        )}
+        <DetailRow label="Budget" isDarkMode={isDarkMode}>
+          {movie.budget ? `$${movie.budget.toLocaleString()}` : "Unknown"}
+        </DetailRow>
 
-        {movie.revenue && (
-          <div className="grid sm:grid-cols-[150px_1fr] gap-4 items-start">
-            <p className="font-semibold text-lg text-gray-300">Revenue</p>
-            <p className="text-white">${movie.revenue.toLocaleString()}</p>
-          </div>
-        )}
+        <DetailRow label="Revenue" isDarkMode={isDarkMode}>
+          {movie.revenue ? `$${movie.revenue.toLocaleString()}` : "Unknown"}
+        </DetailRow>
 
         {movie.tagline && (
-          <div className="grid sm:grid-cols-[150px_1fr] gap-4 items-start">
-            <p className="font-semibold text-lg text-gray-300">Tagline</p>
-            <p className="text-white italic">"{movie.tagline}"</p>
-          </div>
+          <DetailRow label="Tagline" isDarkMode={isDarkMode}>
+            <p className="italic">"{movie.tagline}"</p>
+          </DetailRow>
         )}
 
         {movie.production_companies!.length > 0 && (
-          <div className="grid sm:grid-cols-[150px_1fr] gap-4 items-start">
-            <p className="font-semibold text-lg text-gray-300">Production</p>
-            <p className="text-white">
-              {movie.production_companies?.map(comp => comp.name).join(" • ")}
-            </p>
-          </div>
+          <DetailRow label="Production" isDarkMode={isDarkMode}>
+            {movie.production_companies!.map((comp) => comp.name).join(" • ")}
+          </DetailRow>
         )}
 
         <div className="flex justify-between flex-col sm:flex-row gap-4 pt-4">
-          <button
-            onClick={() => window.history.back()}
-            className="w-full sm:w-auto px-6 py-2.5 rounded-lg font-medium text-black"
+          <Link
+            href="/"
+            className="w-full sm:w-auto px-6 py-2.5 rounded-lg font-medium text-black text-center"
             style={{
               background: "linear-gradient(90deg, #D6C7FF 0%, #AB8BFF 100%)",
             }}
           >
             Return Back
-          </button>
+          </Link>
 
           {movie.homepage && (
             <a
               href={movie.homepage}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="w-full sm:w-auto px-6 py-2.5 rounded-lg font-medium text-black text-center"
               style={{
                 background: "linear-gradient(90deg, #D6C7FF 0%, #AB8BFF 100%)",

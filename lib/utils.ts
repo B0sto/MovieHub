@@ -21,5 +21,17 @@ export function formatVoteAverage(value: number) {
   if (!decimalPart) return intPart;
   if (decimalPart.length === 1) return value.toFixed(1);
 
-  return `${intPart}.${decimalPart.slice(0,2)}`
+  return `${intPart}.${decimalPart.slice(0,1)}`
+}
+
+export function formatReleaseDate(dateString: string) {
+  if(!dateString) return '';
+
+  const date =  new Date(dateString);
+
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
 }

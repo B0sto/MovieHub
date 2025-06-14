@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import axios from 'axios';
+import axios from "axios";
 
-const API_BASE_URL = process.env.API_BASE_URL
+const API_BASE_URL = process.env.API_BASE_URL;
 const API_KEY = process.env.TMDB_API_KEY;
 const API_OPTIONS = {
   headers: {
@@ -18,9 +18,17 @@ export async function GET(req: Request, context: { params: Promise<{ id: string 
     return NextResponse.json({ error: "Missing TMDB API key" }, { status: 404 });
   }
 
-  const res = await axios.get(`${API_BASE_URL}/movie/${id}?api_key=${API_KEY}`, API_OPTIONS);
+  const movieRes = await axios.get(`${API_BASE_URL}/movie/${id}`, API_OPTIONS);
+  const movie = movieRes.data;
 
+  const videoRes = await axios.get(`${API_BASE_URL}/movie/${id}/videos`, API_OPTIONS);
+  const videos = videoRes.data.results;
 
-  const movie = await res.data;
+  const trailer = videos.find(
+    (v: any) => v.type === "Trailer" && v.site === "YouTube"
+  );
+
+  movie.trailer_url = trailer ? `https://www.youtube.com/watch?v=${trailer.key}` : null;
+
   return NextResponse.json(movie);
 }

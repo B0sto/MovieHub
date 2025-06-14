@@ -18,7 +18,7 @@ const ThemeToggle = () => {
   }
 
   return (
-    <div onClick={toggleTheme} className="cursor-pointer opacity-100">
+    <div onClick={toggleTheme} className="cursor-pointer z-50">
       {isDarkMode ? (
         <IoSunny className="sun_icon" />
       ) : (
