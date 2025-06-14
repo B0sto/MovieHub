@@ -1,8 +1,9 @@
+import Link from "next/link";
 import React from "react";
 
 const Logo = () => {
   return (
-    <div className="flex justify-center h-[100px] items-center">
+    <Link href={'/'} className="flex justify-center h-[100px] items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="91"
@@ -147,7 +148,7 @@ const Logo = () => {
           </linearGradient>
         </defs>
       </svg>
-    </div>
+    </Link>
   );
 };
 

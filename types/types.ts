@@ -6,7 +6,6 @@ export interface Movie {
     release_date: string,
     original_language: string,
     poster_url: string,
-    backdrop_path?: string,
     description?: string,
     runtime?: number,
     vote_count?: number,
@@ -20,6 +19,7 @@ export interface Movie {
     tagline?: string;
     production_companies?: Array<{name: string}>
     homepage?: string;
+    trailer_url?: string;
 
 }
 
