@@ -2,14 +2,9 @@
 
 import React, { use, useEffect, useState } from "react";
 import { useMovieContext } from "@/contexts/MovieContext";
-import StarIcon from "@/components/StarIcon";
 import Spinner from "@/components/Spinner";
 import { Movie } from "@/types/types";
-import {
-  formatReleaseDate,
-  formatVoteAverage,
-  movieDurationConverter,
-} from "@/lib/utils";
+import { formatReleaseDate, movieDurationConverter } from "@/lib/utils";
 import { useTheme } from "@/contexts/ThemeContext";
 import ThemeToggle from "@/components/ThemeToggle";
 import Logo from "@/public/Logo";
@@ -43,7 +38,7 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <section
-      className={`${isDarkMode ? "bg-primary" : "bg-white"} movies_detail_page`}
+      className={`${isDarkMode ? "bg-primary" : "bg-white"} movies_detail_page relative`}
     >
       <Logo />
       <ThemeToggle />
@@ -140,9 +135,7 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
                       className={`mx-2 ${
                         isDarkMode ? "text-gray-500" : "text-gray-400"
                       }`}
-                    >
-                      •
-                    </span>
+                    >•</span>
                   )}
                 </li>
               ))}
