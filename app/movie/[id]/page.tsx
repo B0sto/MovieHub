@@ -28,6 +28,13 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
 
     fetchMovie();
   }, [id]);
+
+  useEffect(() => {
+    if (isDarkMode !== undefined) {
+      document.documentElement.classList.add(isDarkMode ? "dark" : "light");
+      document.documentElement.classList.remove(isDarkMode ? "light" : "dark");
+    }
+  }, [isDarkMode]);
   if (!movie) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -38,7 +45,9 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <section
-      className={`${isDarkMode ? "bg-primary" : "bg-white"} movies_detail_page relative`}
+      className={`${
+        isDarkMode ? "bg-primary" : "bg-white"
+      } movies_detail_page relative`}
     >
       <Logo />
       <ThemeToggle />
@@ -135,7 +144,9 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
                       className={`mx-2 ${
                         isDarkMode ? "text-gray-500" : "text-gray-400"
                       }`}
-                    >•</span>
+                    >
+                      •
+                    </span>
                   )}
                 </li>
               ))}
