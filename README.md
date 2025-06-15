@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 Movie Browser App (Next.js + TypeScript)
 
-## Getting Started
+A modern, full-stack movie browsing app built using **Next.js**, **TypeScript**, **Tailwind CSS**, and **Appwrite** for backend services like authentication and database.
 
-First, run the development server:
+> 📽️ Based on the YouTube tutorial: [React JS Full Course 2025 – Build and Deploy a Movie App](https://youtu.be/dCLhUialKPQ?si=JMuGikX-t5usKypW)  
+> 🧠 Rebuilt with Next.js and TypeScript for enhanced performance and scalability.
+
+---
+
+## 🚀 Features
+
+- 🔍 Search and explore movies using a public API
+- 💅 Beautiful, responsive UI powered by Tailwind CSS
+- ❤️ Save movies to your favorites (Appwrite Database)
+- ⚡ Real-time trending movies update with Appwrite
+- 🌐 Optimized routing with Next.js file-based structure
+- 🔎 Type-safe codebase using TypeScript
+
+---
+
+## 🧰 Tech Stack
+
+| Tech        | Purpose                               |
+|-------------|----------------------------------------|
+| Next.js     | React framework with SSR/SSG           |
+| TypeScript  | Static typing                          |
+| Tailwind CSS| Utility-first styling                  |
+| Appwrite    | Auth, database, real-time backend      |
+| TMDB API or similar | Movie data provider           |
+
+---
+
+## 📦 Getting Started
+
+### Prerequisites
+
+- Node.js v18+
+- An Appwrite project configured with:
+  - A **movies** collection in your database
+  - A **favorites** collection linked to user IDs
+
+### 1. Clone the project
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+git clone https://github.com/B0sto/MovieHub.git
+cd MovieHub
