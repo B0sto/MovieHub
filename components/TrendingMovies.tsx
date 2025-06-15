@@ -5,10 +5,7 @@ import Link from "next/link";
 
 const TrendingMovies = () => {
   const { trendingMovies } = useMovieContext();
-  const { isDarkMode } = useTheme();
-
-  console.log(trendingMovies);
-  
+  const { isDarkMode } = useTheme();  
 
   return (
     <>
