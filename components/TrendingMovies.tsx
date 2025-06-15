@@ -7,7 +7,6 @@ const TrendingMovies = () => {
   const { trendingMovies } = useMovieContext();
   const { isDarkMode } = useTheme();
 
-  console.log(trendingMovies);
   
 
   return (
