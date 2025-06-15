@@ -7,15 +7,35 @@ import Search from "./Search";
 import Pagination from "./Pagination";
 import { useTheme } from "@/contexts/ThemeContext";
 import TrendingMovies from "./TrendingMovies";
+import { useEffect, useRef } from "react";
 
 const MovieList = () => {
   const { isDarkMode } = useTheme();
 
-  const { movieList, isLoading, errorMessage, totalPages } = useMovieContext();
+  const { movieList, isLoading, errorMessage, totalPages, page } =
+    useMovieContext();
+
+  const moviesSectionRef = useRef<HTMLElement>(null);
+  const prevPageRef = useRef(page);
+
+  useEffect(() => {
+    if (prevPageRef.current !== page) {
+      if (moviesSectionRef.current) {
+        const top =
+          moviesSectionRef.current.getBoundingClientRect().top + window.scrollY;
+
+        window.scrollTo({
+          top: top + 150,
+          behavior: "smooth",
+        });
+      }
+      prevPageRef.current = page;
+    }
+  }, [page])
 
   return (
     <>
-      <section className="all-movies">
+      <section className="all-movies" ref={moviesSectionRef}>
         <Search />
         <TrendingMovies />
 
