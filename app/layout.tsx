@@ -3,6 +3,7 @@ import "./globals.css";
 import { MovieProvider } from "@/contexts/MovieContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import ClientLayout from "@/components/ClientLayout";
+import { dmSans } from '@/fonts/fonts'
 
 export const metadata: Metadata = {
   title: "MovieHub",
@@ -16,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={dmSans.className}>
         <MovieProvider>
           <ThemeProvider>
             <ClientLayout>{children}</ClientLayout>

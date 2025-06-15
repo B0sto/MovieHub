@@ -2,6 +2,7 @@ import { useMovieContext } from "@/contexts/MovieContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import Image from "next/image";
 import Link from "next/link";
+import { bebasNeue } from "@/fonts/fonts";
 
 const TrendingMovies = () => {
   const { trendingMovies } = useMovieContext();
@@ -18,7 +19,7 @@ const TrendingMovies = () => {
           <ol>
             {trendingMovies.map((movie, index) => (
               <li key={index} className="flex gap-x-[10px] justify-center">
-                <p className={`${isDarkMode ? "text-black" : "text-gray-500"}`}>
+                <p className={`${isDarkMode ? "fancy-text-dark" : "fancy-text-light"} ${bebasNeue.className} `}>
                   {index + 1}
                 </p>
                 <Link href={`/movie/${movie.movie_id}`}>
