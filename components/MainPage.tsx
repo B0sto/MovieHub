@@ -5,9 +5,17 @@ import MovieList from "@/components/MovieList";
 import { useTheme } from "@/contexts/ThemeContext";
 import ThemeToggle from "@/components/ThemeToggle";
 import TrendingMovies from "./TrendingMovies";
+import { useEffect } from "react";
 
 const MainPage = () => {
   const { isDarkMode } = useTheme();
+
+  useEffect(() => {
+    if (isDarkMode !== undefined) {
+      document.documentElement.classList.add(isDarkMode ? "dark" : "light");
+      document.documentElement.classList.remove(isDarkMode ? "light" : "dark");
+    }
+  }, [isDarkMode]);
 
   return (
     <main className={` ${isDarkMode ? "bg-primary" : "bg-white"}`}>
