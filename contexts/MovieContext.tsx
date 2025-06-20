@@ -46,8 +46,10 @@ export const MovieProvider = ({ children }: { children: React.ReactNode }) => {
           return;
         }
 
+        const allPages =  Math.floor(response.data.total_pages / 1000); 
+
         setMovieList(result);
-        setTotalPages(response.data.total_pages || 1);
+        setTotalPages(allPages || 1);
       } catch (error) {
         console.error("Error getting Movies", error);
         setErrorMessage("Something went wrong");
