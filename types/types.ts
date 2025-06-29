@@ -54,3 +54,12 @@ export type TrendingMovies = {
         poster_path: string
     };
 }
+
+export type FormModalProps = {
+    onClick: (prev: any) => void;
+}
+
+
+export interface BugReportFormProps {
+  onClose: () => void;
+}

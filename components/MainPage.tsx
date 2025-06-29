@@ -4,11 +4,13 @@ import Image from "next/image";
 import MovieList from "@/components/MovieList";
 import { useTheme } from "@/contexts/ThemeContext";
 import ThemeToggle from "@/components/ThemeToggle";
-import TrendingMovies from "./TrendingMovies";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import FormModal from "./FormModal";
+import BugReportForm from "@/components/BugReportForm"
 
 const MainPage = () => {
   const { isDarkMode } = useTheme();
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     if (isDarkMode !== undefined) {
@@ -41,6 +43,8 @@ const MainPage = () => {
         </header>
 
         <MovieList />
+        {openModal && <BugReportForm onClose={() => setOpenModal(false)}/>}
+        {!openModal && <FormModal onClick={() => setOpenModal(true)} />}
       </div>
     </main>
   );

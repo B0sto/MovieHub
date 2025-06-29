@@ -12,12 +12,15 @@ import Link from "next/link";
 import ScoreBox from "@/components/ScoreBox";
 import DetailRow from "@/components/DetailRow";
 import GenreBadge from "@/components/GenreBadge";
+import BugReportForm from "@/components/BugReportForm";
+import FormModal from "@/components/FormModal";
 
 const page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
   const { getMovieById } = useMovieContext();
   const { isDarkMode } = useTheme();
   const [movie, setMovie] = useState<Movie | undefined>(undefined);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -214,6 +217,9 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
           )}
         </div>
       </div>
+
+      {openModal && <BugReportForm onClose={() => setOpenModal(false)} />}
+      {!openModal && <FormModal onClick={() => setOpenModal(true)} />}
     </section>
   );
 };

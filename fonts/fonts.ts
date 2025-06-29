@@ -8,5 +8,6 @@ export const dmSans = DM_Sans({
 
 export const bebasNeue = Bebas_Neue({
   subsets: ['latin'],
-  weight: '400'
+  weight: '400',
+  display: 'swap'
 })
