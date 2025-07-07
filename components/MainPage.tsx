@@ -6,7 +6,8 @@ import { useTheme } from "@/contexts/ThemeContext";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useEffect, useState } from "react";
 import FormModal from "./FormModal";
-import BugReportForm from "@/components/BugReportForm"
+import BugReportForm from "@/components/BugReportForm";
+import Footer from "./Footer";
 
 const MainPage = () => {
   const { isDarkMode } = useTheme();
@@ -43,9 +44,10 @@ const MainPage = () => {
         </header>
 
         <MovieList />
-        {openModal && <BugReportForm onClose={() => setOpenModal(false)}/>}
+        {openModal && <BugReportForm onClose={() => setOpenModal(false)} />}
         {!openModal && <FormModal onClick={() => setOpenModal(true)} />}
       </div>
+      <Footer />
     </main>
   );
 };
